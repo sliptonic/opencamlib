@@ -1,30 +1,30 @@
 /*  $Id$
- * 
+ *
  *  Copyright (c) 2010-2011 Anders Wallin (anders.e.e.wallin "at" gmail.com).
- *  
- *  This file is part of OpenCAMlib 
+ *
+ *  This file is part of OpenCAMlib
  *  (see https://github.com/aewallin/opencamlib).
- *  
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 2.1 of the License, or
  *  (at your option) any later version.
- *  
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <boost/python.hpp>
 
-#include "batchdropcutter_py.hpp" 
-#include "pathdropcutter_py.hpp"  
-#include "adaptivepathdropcutter_py.hpp"  
-
+#include "batchdropcutter_py.hpp"
+#include "pathdropcutter_py.hpp"
+#include "adaptivepathdropcutter_py.hpp"
+#include "pointdropcutter_py.hpp"
 
 /*
  *  Python wrapping of octree and related classes
@@ -65,6 +65,7 @@ void export_dropcutter() {
         .def("getZ", &PathDropCutter_py::getZ)
         .def("setZ", &PathDropCutter_py::setZ)
     ;
+
     bp::class_<AdaptivePathDropCutter>("AdaptivePathDropCutter_base")
     ;
     bp::class_<AdaptivePathDropCutter_py , bp::bases<AdaptivePathDropCutter> >("AdaptivePathDropCutter")
@@ -81,6 +82,21 @@ void export_dropcutter() {
         .def("setZ", &AdaptivePathDropCutter_py::setZ)
     ;
 
+    bp::class_<PointDropCutter>("PointDropCutter_base")
+    ;
+    bp::class_<PointDropCutter_py , bp::bases<PointDropCutter> >("PointDropCutter")
+        .def("run", &PointDropCutter_py::run)
+        .def("getCLPoints", &PointDropCutter_py::getCLPoints_py)
+        .def("setCutter", &PointDropCutter_py::setCutter)
+        .def("setSTL", &PointDropCutter_py::setSTL)
+        .def("setSampling", &PointDropCutter_py::setSampling)
+        .def("setMinSampling", &PointDropCutter_py::setMinSampling)
+        .def("setCosLimit", &PointDropCutter_py::setCosLimit)
+        .def("getSampling", &PointDropCutter_py::getSampling)
+        .def("setPath", &PointDropCutter_py::setPath)
+        .def("getZ", &PointDropCutter_py::getZ)
+        .def("setZ", &PointDropCutter_py::setZ)
+    ;
 
 }
 
